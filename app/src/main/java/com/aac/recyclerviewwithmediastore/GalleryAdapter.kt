@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aac.recyclerviewwithmediastore.databinding.ItemTodoBinding
+import com.bumptech.glide.Glide
 import java.text.CharacterIterator
 import java.text.DecimalFormat
 import java.text.StringCharacterIterator
@@ -16,7 +17,11 @@ class GalleryAdapter() : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>(
     class GalleryViewHolder(private val itemBinding: ItemTodoBinding): RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(item: VideoItem)
         {
-            itemBinding.ivGallery.setImageResource(R.drawable.image_bg)
+            Glide.with(itemBinding.ivGallery)
+                .load(item.uri)
+                .placeholder(R.drawable.image_bg) // optional: add a placeholder image
+                .into(itemBinding.ivGallery)
+            //itemBinding.ivGallery.setImageResource(R.drawable.image_bg)
             itemBinding.tvName.text = item.title
             itemBinding.tvDuration.text = item.duration.formatTime()
             itemBinding.tvSize.text = item.size.readableSize()
